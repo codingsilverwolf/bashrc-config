@@ -47,14 +47,18 @@ else
   echo "✅ DOCS_PATH válido: $DOCS_PATH"
 fi
 
-# ─── Definición portable de clave SSH ───────────────────────────
-case "$ENV_TYPE" in
-  termux) export SSH_KEY_NAME="id_ed25519_termux" ;;
-  acode) export SSH_KEY_NAME="id_ed25519_acode" ;;
-esac
+# ─── Detección automática de clave SSH ──────────────────────────
+SSH_KEY_NAME="$(ls "$HOME/.ssh/" | grep -E "^id_ed25519_${ENV_TYPE}.*$" | head -n 1)"
 
-export SSH_KEY_PATH="$HOME/.ssh/$SSH_KEY_NAME"
-echo "🔐 Clave SSH esperada: $SSH_KEY_PATH"
+if [ -n "$SSH_KEY_NAME" ]; then
+  export SSH_KEY_PATH="$HOME/.ssh/$SSH_KEY_NAME"
+  echo "🔐 Clave SSH detectada automáticamente: $SSH_KEY_NAME"
+else
+  echo "❌ No se encontró clave SSH para entorno: $ENV_TYPE"
+  echo "📌 Crea una con:"
+  echo "    ssh-keygen -t ed25519 -f \"$HOME/.ssh/id_ed25519_${ENV_TYPE}\" -C \"<correo_privado>\""
+fi
+
 
 
 # ─── Identificador personalizado ────────────────────────────────
