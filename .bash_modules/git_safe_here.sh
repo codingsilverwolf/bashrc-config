@@ -1,3 +1,6 @@
+source ~/.bash_modules/validate_env.sh
+
+
 # ── Módulo: git_safe_here ──
 git-safe-here() {
   # Intenta obtener la ruta raíz del repositorio Git

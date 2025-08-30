@@ -1,3 +1,5 @@
+source ~/.bash_modules/validate_env.sh
+
 # ── Módulo: ssh_autoload ──
 
 echo "⏳ Intentando cargar clave SSH..."
@@ -7,6 +9,8 @@ if ! pgrep ssh-agent >/dev/null 2>&1; then
   eval "$(ssh-agent -s)" >/dev/null
   echo "🚀 ssh-agent iniciado"
 fi
+
+
 
 # Validación de existencia de clave
 if [ ! -f "$SSH_KEY_PATH" ]; then

@@ -1,3 +1,5 @@
+
+
 # ─── Detección de entorno ───────────────────────────────────────
 detect_env() {
   if grep -qi "alpine" /etc/os-release 2>/dev/null; then
@@ -66,18 +68,30 @@ prompt_identity() {
   echo "creador@termux"
 }
 
-# ─── Carga de módulos funcionales ───────────────────────────────
+# ─── Carga de módulos funcionales con validación ────────────────
 for module in ~/.bash_modules/*.sh; do
   case "$module" in
     *ssh_autoload.sh|*modulo_sensible.sh) continue ;;  # Excluir sensibles
-    *) source "$module" ;;
+    *)
+      if source "$module"; then
+        echo "✅ Módulo cargado correctamente: $(basename "$module")"
+      else
+        echo "❌ Error al cargar módulo: $(basename "$module")"
+      fi
+    ;;
   esac
 done
+
 
 echo "🔌 Módulos funcionales cargados"
 
 # ─── Carga de módulos sensibles ─────────────────────────────────
-source ~/.bash_modules/ssh_autoload.sh
+if source ~/.bash_modules/ssh_autoload.sh; then
+  echo "✅ ssh_autoload cargado correctamente"
+else
+  echo "❌ Error al cargar ssh_autoload"
+fi
+
 # source ~/.bash_modules/modulo_sensible.sh  # Ejemplo futuro
 
 echo "🛡️ Módulos sensibles cargados"

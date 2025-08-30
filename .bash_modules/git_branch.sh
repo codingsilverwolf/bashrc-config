@@ -1,3 +1,7 @@
+source ~/.bash_modules/validate_env.sh
+
+
+
 # ─── Función para obtener rama Git ───
 parse_git_branch() {
   branch=$(git symbolic-ref --short HEAD 2>/dev/null)

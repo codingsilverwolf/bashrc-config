@@ -1,7 +1,8 @@
+source ~/.bash_modules/validate_env.sh
+
+
 # ── Módulo: backup_env ──
 
-# Validación de entorno
-[ -z "$ENV_TYPE" ] && echo "❌ ENV_TYPE no definido. Abortando backup." && return
 
 # Carpeta destino con timestamp
 BACKUP_ROOT="$DOCS_PATH/bash_backups"
