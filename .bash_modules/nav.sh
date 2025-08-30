@@ -1,5 +1,5 @@
 nav_fzf() {
-  cd ~/storage/shared/Documents
+  cd "$DOCS_PATH"
   cd "$(find . -type d -not -path '*/\.*' 2>/dev/null | fzf)" && echo "📂 Navegando a: $(pwd)"
 }
 alias nav='nav_fzf'
