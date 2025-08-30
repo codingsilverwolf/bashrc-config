@@ -32,6 +32,29 @@ if [ ! -d "$DOCS_PATH" ]; then
   mkdir -p "$DOCS_PATH" && echo "📂 Carpeta creada: $DOCS_PATH"
 fi
 
+# ─── Validación visual de variables críticas ────────────────────
+if [ -z "$ENV_TYPE" ]; then
+  echo "❌ ENV_TYPE no definido"
+else
+  echo "✅ ENV_TYPE: $ENV_TYPE"
+fi
+
+if [ -z "$DOCS_PATH" ]; then
+  echo "❌ DOCS_PATH no definido"
+elif [ ! -d "$DOCS_PATH" ]; then
+  echo "⚠️ DOCS_PATH no existe: $DOCS_PATH"
+else
+  echo "✅ DOCS_PATH válido: $DOCS_PATH"
+fi
+
+# ─── Definición portable de clave SSH ───────────────────────────
+case "$ENV_TYPE" in
+  termux) export SSH_KEY_NAME="id_ed25519_termux" ;;
+  acode) export SSH_KEY_NAME="id_ed25519_acode" ;;
+esac
+
+export SSH_KEY_PATH="$HOME/.ssh/$SSH_KEY_NAME"
+echo "🔐 Clave SSH esperada: $SSH_KEY_PATH"
 
 
 # ─── Identificador personalizado ────────────────────────────────
