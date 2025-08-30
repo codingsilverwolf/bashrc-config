@@ -4,4 +4,5 @@ nav_fzf() {
 }
 alias nav='nav_fzf'
 
-echo "🔧 Módulo cargado: $(basename "${BASH_SOURCE[0]}")"
+echo "🔧 Módulo cargado: $(basename "${BASH_SOURCE[0]}") [$ENV_TYPE]"
+

@@ -29,4 +29,5 @@ git-safe-here() {
 }
 
 # ── Trazabilidad ──
-echo "🔧 Módulo cargado: $(basename "${BASH_SOURCE[0]}")"
+echo "🔧 Módulo cargado: $(basename "${BASH_SOURCE[0]}") [$ENV_TYPE]"
+

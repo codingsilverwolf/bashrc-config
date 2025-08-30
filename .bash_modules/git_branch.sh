@@ -7,4 +7,5 @@ parse_git_branch() {
 # ─── Prompt con rama Git y nombre personalizado ──────────────────────
 export PS1='\[\e[0;32m\]$(prompt_identity) \[\e[0;34m\]\w\[\e[0;33m\]$(parse_git_branch)\[\e[0m\]\n\$ '
 
-echo "🔧 Módulo cargado: $(basename "${BASH_SOURCE[0]}")"
+echo "🔧 Módulo cargado: $(basename "${BASH_SOURCE[0]}") [$ENV_TYPE]"
+

@@ -14,6 +14,5 @@ if ! ssh-add -l 2>/dev/null | grep -q "id_ed25519_termux_cel"; then
 fi
 
 # Confirmación de carga del módulo (trazabilidad embebida)
-echo "🔧 Módulo cargado: ssh_autoload.sh"
+echo "🔧 Módulo cargado: $(basename "${BASH_SOURCE[0]}") [$ENV_TYPE]"
 
-# ──────────────────────────

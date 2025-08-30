@@ -39,11 +39,18 @@ prompt_identity() {
   echo "creador@termux"
 }
 
-# ─── Carga automática de módulos ────────────────────────────────
+# ─── Carga de módulos funcionales ───────────────────────────────
 for module in ~/.bash_modules/*.sh; do
-  [[ "$module" == *ssh_autoload.sh ]] && continue
-  source "$module"
+  case "$module" in
+    *ssh_autoload.sh|*modulo_sensible.sh) continue ;;  # Excluir sensibles
+    *) source "$module" ;;
+  esac
 done
 
-# ─── Cargar agente SSH al final ─────────────────────────────────
+echo "🔌 Módulos funcionales cargados"
+
+# ─── Carga de módulos sensibles ─────────────────────────────────
 source ~/.bash_modules/ssh_autoload.sh
+# source ~/.bash_modules/modulo_sensible.sh  # Ejemplo futuro
+
+echo "🛡️ Módulos sensibles cargados"
