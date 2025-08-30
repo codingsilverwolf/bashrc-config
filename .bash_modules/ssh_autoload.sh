@@ -16,11 +16,13 @@ if [ ! -f "$SSH_KEY_PATH" ]; then
   echo "    👉 Revisá tu correo privado en https://github.com/settings/emails"
 else
   # Carga la clave si no está presente en el agente
-  if ! ssh-add -l 2>/dev/null | grep -q "$SSH_KEY_NAME"; then
-    ssh-add "$SSH_KEY_PATH" >/dev/null && echo "🔐 Clave SSH cargada: $SSH_KEY_NAME"
+  KEY_BASENAME="$(basename "$SSH_KEY_PATH")"
+  if ! ssh-add -l 2>/dev/null | grep -q "$KEY_BASENAME"; then
+    ssh-add "$SSH_KEY_PATH" >/dev/null && echo "🔐 Clave SSH cargada: $KEY_BASENAME"
   else
-    echo "✅ Clave SSH ya está activa: $SSH_KEY_NAME"
+    echo "✅ Clave SSH ya está activa: $KEY_BASENAME"
   fi
+
 fi
 
 echo "🔧 Módulo cargado: $(basename "${BASH_SOURCE[0]}") [$ENV_TYPE]"
