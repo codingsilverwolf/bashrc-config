@@ -1,27 +1,30 @@
-# ── Función: export_modules ──
-export_modules() {
-  local source_dir="$HOME/.bash_modules"
-  local target_base="$HOME/storage/shared/Documents"
-  local timestamp="$(date +%Y-%m-%d_%H-%M)"
-  local target_dir="$target_base/bash_modules_backup_$timestamp"
+# ── Módulo: backup_env ──
 
-  # Mensaje de inicio
-  echo "📦 Exportando módulos desde $source_dir → $target_dir"
+# Validación de entorno
+[ -z "$ENV_TYPE" ] && echo "❌ ENV_TYPE no definido. Abortando backup." && return
 
-  # Crear carpeta destino si no existe
-  mkdir -p "$target_dir"
+# Carpeta destino con timestamp
+BACKUP_ROOT="$DOCS_PATH/bash_backups"
+TIMESTAMP="$(date +'%Y%m%d_%H%M%S')"
+BACKUP_DIR="$BACKUP_ROOT/$ENV_TYPE-$TIMESTAMP"
 
-  # Copiar con trazabilidad mínima
-  for module in "$source_dir"/*.sh; do
-    cp "$module" "$target_dir/" && echo "✅ Copiado: $(basename "$module")"
-  done
+# Crear carpeta
+mkdir -p "$BACKUP_DIR"
 
-  # Confirmación final
-  echo "🗂️ Backup completo: $target_dir"
-}
+# Archivos a respaldar
+cp "$HOME/.bashrc" "$BACKUP_DIR/bashrc.bak" 2>/dev/null
+cp -r "$HOME/.bash_modules" "$BACKUP_DIR/bash_modules.bak" 2>/dev/null
+cp "$HOME/.gitconfig" "$BACKUP_DIR/" 2>/dev/null
+cp "$HOME/.gitignore_global" "$BACKUP_DIR/" 2>/dev/null
 
-# ── Alias ──
-alias export_modules='export_modules'
+# Clave pública (no sensible)
+if [ -f "$SSH_KEY_PATH.pub" ]; then
+  cp "$SSH_KEY_PATH.pub" "$BACKUP_DIR/" && echo "📤 Clave pública respaldada: $(basename "$SSH_KEY_PATH.pub")"
+fi
 
-# ── Trazabilidad ──
+# Mensajes visuales
+echo "🗂️ Backup creado en: $BACKUP_DIR"
+ls -1 "$BACKUP_DIR" | sed 's/^/   └── /'
+
+# Confirmación de carga del módulo
 echo "🔧 Módulo cargado: $(basename "${BASH_SOURCE[0]}") [$ENV_TYPE]"
