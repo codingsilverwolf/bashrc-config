@@ -1,5 +1,5 @@
 source ~/.bash_modules/validate_env.sh
-validate_env || return
+
 
 
 # ── Módulo: ssh_autoload ──

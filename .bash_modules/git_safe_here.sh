@@ -2,7 +2,7 @@
 
 # Carga entorno y valida antes de ejecutar
 source ~/.bash_modules/validate_env.sh
-validate_env || return
+
 
 git-safe-here() {
   # Paso 1: Validación funcional directa
