@@ -76,7 +76,7 @@ prompt_identity() {
 # ─── Carga de módulos funcionales con validación ────────────────
 for module in ~/.bash_modules/*.sh; do
   case "$module" in
-    *ssh_autoload.sh|*modulo_sensible.sh) continue ;;  # Excluir sensibles
+    *ssh_autoload.sh|*modulo_sensible.sh|*validate_env.sh) continue ;;  # Excluir sensibles
     *)
       if ! source "$module"; then
         echo "❌ Error al cargar módulo: $(basename "$module")"
