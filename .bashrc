@@ -74,8 +74,6 @@ for module in ~/.bash_modules/*.sh; do
     *ssh_autoload.sh|*modulo_sensible.sh) continue ;;  # Excluir sensibles
     *)
       if source "$module"; then
-        echo "✅ Módulo cargado correctamente: $(basename "$module")"
-      else
         echo "❌ Error al cargar módulo: $(basename "$module")"
       fi
     ;;
