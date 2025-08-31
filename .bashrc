@@ -93,3 +93,7 @@ fi
 # source ~/.bash_modules/modulo_sensible.sh  # Ejemplo futuro
 
 echo "🛡️ Módulos sensibles cargados"
+
+
+# ─── Alias de sincronización quirúrgica ─────────────────────────
+alias sync_env='cp ~/bashrc-config/.bashrc ~/.bashrc && cp -r ~/bashrc-config/.bash_modules ~/.bash_modules && source ~/.bashrc'
