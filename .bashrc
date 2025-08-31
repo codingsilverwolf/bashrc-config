@@ -20,6 +20,11 @@ case "$ENV_TYPE" in
   *) echo "🧭 Entorno detectado: Desconocido ($ENV_TYPE)" ;;
 esac
 
+# ─── Carga de alias externos ────────────────────────────────────
+[ -f ~/.alias_sync_env.sh ] && source ~/.alias_sync_env.sh
+
+
+
 # ─── Ruta portable para documentos ──────────────────────────────
 case "$ENV_TYPE" in
   termux) export DOCS_PATH="$HOME/storage/shared/Documents" ;;
@@ -93,7 +98,3 @@ fi
 # source ~/.bash_modules/modulo_sensible.sh  # Ejemplo futuro
 
 echo "🛡️ Módulos sensibles cargados"
-
-
-# ─── Alias de sincronización quirúrgica ─────────────────────────
-alias sync_env='cp ~/bashrc-config/.bashrc ~/.bashrc && cp -r ~/bashrc-config/.bash_modules ~/.bash_modules && source ~/.bashrc'
