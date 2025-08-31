@@ -1,9 +1,9 @@
+# ── Módulo: git_safe_here ──
+
+# Carga entorno y valida antes de ejecutar
 source ~/.bash_modules/validate_env.sh
 validate_env || return
 
-
-
-# ── Módulo: git_safe_here ──
 git-safe-here() {
   # Intenta obtener la ruta raíz del repositorio Git
   repo_path=$(git rev-parse --show-toplevel 2>/dev/null)
@@ -12,6 +12,11 @@ git-safe-here() {
   if [ -z "$repo_path" ]; then
     if [ -d ".git" ]; then
       repo_path=$(pwd)
+      # Validación funcional: ¿el repo responde?
+      if ! git rev-parse HEAD >/dev/null 2>&1; then
+        echo "❌ .git detectado pero el repo está corrupto o mal inicializado"
+        return 1
+      fi
       # Verifica si ya está marcado como seguro antes de mostrar advertencia
       already_safe=$(git config --global --get-all safe.directory | grep -Fx "$repo_path")
       [ -z "$already_safe" ] && echo "⚠️ Git no pudo detectar el repo, usando $(pwd)"
@@ -35,4 +40,3 @@ git-safe-here() {
 
 # ── Trazabilidad ──
 echo "🔧 Módulo cargado: $(basename "${BASH_SOURCE[0]}") [$ENV_TYPE]"
-
