@@ -78,7 +78,7 @@ for module in ~/.bash_modules/*.sh; do
   case "$module" in
     *ssh_autoload.sh|*modulo_sensible.sh) continue ;;  # Excluir sensibles
     *)
-      if source "$module"; then
+      if ! source "$module"; then
         echo "❌ Error al cargar módulo: $(basename "$module")"
       fi
     ;;
