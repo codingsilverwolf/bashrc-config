@@ -5,34 +5,22 @@ source ~/.bash_modules/validate_env.sh
 validate_env || return
 
 git-safe-here() {
-  # Intenta obtener la ruta raíz del repositorio Git
-  repo_path=$(git rev-parse --show-toplevel 2>/dev/null)
-
-  # Si falla, verifica si hay carpeta .git en el directorio actual
-  if [ -z "$repo_path" ]; then
-    if [ -d ".git" ]; then
-      repo_path=$(pwd)
-      # Validación funcional: ¿el repo responde?
-      if ! git rev-parse HEAD >/dev/null 2>&1; then
-        echo "❌ .git detectado pero el repo está corrupto o mal inicializado"
-        return 1
-      fi
-      # Verifica si ya está marcado como seguro antes de mostrar advertencia
-      already_safe=$(git config --global --get-all safe.directory | grep -Fx "$repo_path")
-      [ -z "$already_safe" ] && echo "⚠️ Git no pudo detectar el repo, usando $(pwd)"
-    else
-      echo "❌ No estás dentro de un repositorio Git"
-      return 1
-    fi
+  # Paso 1: Validación funcional directa
+  if ! git rev-parse HEAD >/dev/null 2>&1; then
+    echo "❌ No estás dentro de un repositorio Git funcional"
+    return 1
   fi
 
-  # Verifica si ya está marcado como seguro en la configuración global
+  # Paso 2: Detección de raíz del repo
+  repo_path=$(git rev-parse --show-toplevel 2>/dev/null)
+  [ -z "$repo_path" ] && repo_path=$(pwd)
+
+  # Paso 3: Verificación de seguridad
   already_safe=$(git config --global --get-all safe.directory | grep -Fx "$repo_path")
 
   if [ -n "$already_safe" ]; then
     echo "✅ Ya está marcado como seguro: $repo_path"
   else
-    # Agrega el directorio como seguro en la configuración global
     git config --global --add safe.directory "$repo_path"
     echo "🔐 Agregado como seguro: $repo_path"
   fi
