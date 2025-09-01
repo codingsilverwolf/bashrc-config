@@ -9,3 +9,4 @@ alias nav='nav_fzf'
 
 echo "🔧 Módulo cargado: $(basename "${BASH_SOURCE[0]}") [$ENV_TYPE]"
 
+# '*/\.*' = Cualquier cosa, seguida de una barra inclinada (/), seguida de un punto literal (.), seguida de cualquier otra cosa. Es decir, evitamos buscar directorios ocultos.
