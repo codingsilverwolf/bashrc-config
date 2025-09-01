@@ -6,13 +6,17 @@ Repositorio modular para la gestión quirúrgica de `.bashrc` y sus módulos en 
 
 ```
 .
-├── .bashrc
 ├── .bash_modules/
-│   ├── termux.sh
-│   ├── alpine.sh
-│   └── common.sh
-├── README.md
-└── install.sh
+│   ├── exportar_modulos.sh
+│   ├── git_branch.sh
+│   ├── git_safe_here.sh
+│   ├── nav.sh
+│   ├── ssh_autoload.sh
+│   └── validate_env.sh
+├── .git/
+├── .bashrc
+└── README.md
+
 ```
 
 Cada módulo es autocontenible, trazable y activado según entorno detectado.
@@ -26,35 +30,15 @@ Cada módulo es autocontenible, trazable y activado según entorno detectado.
 
 ## 🚀 Uso
 
-1. Clonar el repositorio:
-
-   ```bash
-   git clone git@github.com:codingsilverwolf/bashrc-config.git
-   ```
-
-2. Reemplazar `.bashrc` y cargar módulos según entorno:
-
-   ```bash
-   source ~/.bashrc
-   ```
-
-3. Validar cada módulo con trazabilidad visual:
-
-   ```bash
-   ls -la ~/.bash_modules
-   ```
+Ver nota en Capacities
 
 ## 🧪 Entornos soportados
 
 - Termux (Android)
 - Alpine (WSL, Docker, servidores)
-- Google Colab (via `%bash`)
 
 ## 📜 Licencia
 
 MIT — libre para modificar, versionar y adaptar. Se recomienda mantener trazabilidad de cambios.
 
 ---
-
-> Este repositorio es una obra quirúrgica en evolución. Cada línea está validada, cada módulo documentado.  
-> — Javier, codingsilverwolf
