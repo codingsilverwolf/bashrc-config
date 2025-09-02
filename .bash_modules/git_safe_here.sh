@@ -4,18 +4,12 @@
 source ~/.bash_modules/validate_env.sh
 
 
-git-safe-here() {
-  # Paso 1: Validación funcional directa
-  if ! git rev-parse HEAD >/dev/null 2>&1; then
-    echo "❌ No estás dentro de un repositorio Git funcional"
-    return 1
-  fi
-
-  # Paso 2: Detección de raíz del repo
+git_safe_here() {
+  # Paso 1: Usar pwd como fallback si rev-parse falla
   repo_path=$(git rev-parse --show-toplevel 2>/dev/null)
   [ -z "$repo_path" ] && repo_path=$(pwd)
 
-  # Paso 3: Verificación de seguridad
+  # Paso 2: Verificación de seguridad
   already_safe=$(git config --global --get-all safe.directory | grep -Fx "$repo_path")
 
   if [ -n "$already_safe" ]; then
@@ -25,6 +19,9 @@ git-safe-here() {
     echo "🔐 Agregado como seguro: $repo_path"
   fi
 }
+
+
+alias git-safe-here='git_safe_here'
 
 # ── Trazabilidad ──
 echo "🔧 Módulo cargado: $(basename "${BASH_SOURCE[0]}") [$ENV_TYPE]"
