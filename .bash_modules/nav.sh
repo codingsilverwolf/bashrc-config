@@ -2,9 +2,8 @@ source ~/.bash_modules/validate_env.sh
 
 
 nav_fzf() {
-  echo "📂 Navegando a $DOCS_PATH"
-  sleep 1
-  read -n 1 -s -p "Presiona una tecla para continuar"
+  echo "📂 Navegando a ~/storage/shared/Documents"
+  sleep 2
   cd "$DOCS_PATH"
   cd "$(find . -type d -not -path '*/\.*' 2>/dev/null | fzf)"
 }
